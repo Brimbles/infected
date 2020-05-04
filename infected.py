@@ -80,6 +80,8 @@ population = [pygame.Rect(screen_width / 4 , screen_height / 4, 10, 10)]
 # list of infected people
 infectedpopulation = [pygame.Rect(screen_width / 2 , screen_height / 2, 10, 10)] 
 
+#List of infected that have been killed
+infectedpopulationkilled = []
 
 # Infection rates
 infectionchance = 0.5
@@ -124,7 +126,15 @@ while True:
                         infectedpopulation.append(a)  # add person to the infected population
                         if a in population:
                             population.remove(a) #remove person from the non-infected population
-
+    #Check for zombie killed
+        for z in infectedpopulation:
+            for a in population:
+                if z.colliderect(a) and z != a:
+                    if len(infectedpopulation) >1 : #zombie patient zero cannot be killed
+                        if random.randint(1, 100) <= 5: #5 percent chance of killing zombie
+                            infectedpopulationkilled.append(z)  # add to the killed zombies list
+                            if z in infectedpopulation:
+                                infectedpopulation.remove(z) #remove the zombie from the roaming zombies list
 
     # for i,obj1 in enumerate(population):
     # 	for j in range(i+1,len(population)):
@@ -195,12 +205,18 @@ while True:
         infectedpopulationtext = myfont.render("Zombie population =" +str(len(infectedpopulation)), 1, green_color)
         screen.blit(infectedpopulationtext, (20, 60))
 
+    if int(counter/60) >=20: #At least 20 days have passed
+        infectedpopulationkilledtext = myfont.render("Zombies killed =" +str(len(infectedpopulationkilled)), 1, green_color)
+        screen.blit(infectedpopulationkilledtext, (20, 80))
+
     rulestext = myfont.render("Infection can only be be transmitted after day 20", 1, light_grey)
-    screen.blit(rulestext, (20, 80))
+    screen.blit(rulestext, (20, 100))
     rulestext1 = myfont.render("Each interaction has a 50 percent chance of transmission", 1, light_grey)
-    screen.blit(rulestext1, (20, 100))
-    rulestext2 = myfont.render("There's a chance the human population will boom every 10 days", 1, light_grey)
-    screen.blit(rulestext2, (20, 120))
+    screen.blit(rulestext1, (20, 120))
+    rulestext2 = myfont.render("Each interaction has a 5 percent chance of a human smushing a zombie", 1, light_grey)
+    screen.blit(rulestext2, (20, 140))
+	rulestext3 = myfont.render("There's a chance the human population will boom every 10 days", 1, light_grey)
+    screen.blit(rulestext3, (20, 160))
 
     pygame.display.flip()
     clock.tick(60)
