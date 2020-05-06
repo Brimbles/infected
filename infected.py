@@ -3,7 +3,6 @@ import sys
 import random
 
 
-
 def humanbirther_animation():
     global humanbirther_speed_x, humanbirther_speed_y
     humanbirther.x += humanbirther_speed_x
@@ -29,8 +28,6 @@ def personanimation():
         person.x += -10
 
 
-
-
 # def humanbirther_start():
 #     global humanbirther_speed_x, humanbirther_speed_y
 
@@ -45,13 +42,11 @@ def personanimation():
 #     red = pygame.Rect(red_x, red_y, red_width, red_height)
 #     return red
 
-
 def birth_new_person(x, y):
     """Return one instance of Rect at position x, y"""
 
     newperson = pygame.Rect(x, y, 10, 10)
     return newperson
-
 
 ####################################  General Pygame setup stuff  ###########################
 # General setup
@@ -215,7 +210,7 @@ while True:
     screen.blit(rulestext1, (20, 120))
     rulestext2 = myfont.render("Each interaction has a 5 percent chance of a human smushing a zombie", 1, light_grey)
     screen.blit(rulestext2, (20, 140))
-	rulestext3 = myfont.render("There's a chance the human population will boom every 10 days", 1, light_grey)
+    rulestext3 = myfont.render("There's a chance the human population will boom every 10 days", 1, light_grey)
     screen.blit(rulestext3, (20, 160))
 
     pygame.display.flip()
