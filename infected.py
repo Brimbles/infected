@@ -214,4 +214,4 @@ while True:
     screen.blit(rulestext3, (20, 160))
 
     pygame.display.flip()
-    clock.tick(60)
+    clock.tick(10)
